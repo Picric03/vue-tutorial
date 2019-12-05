@@ -11,6 +11,9 @@ class RegisterApiTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @test
+     */
     public function should_新しいユーザーを生成して返却する(): void
     {
         $data = [

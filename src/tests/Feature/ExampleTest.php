@@ -8,14 +8,18 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ExampleTest extends TestCase
 {
     /**
-     * A basic test example.
-     *
-     * @return void
+     * @test
      */
-    public function testBasicTest()
+    public function 環境確認(): void
     {
-        $response = $this->get('/');
+        $this->assertEquals('testing', $this->app->environment());
+    }
 
-        $response->assertStatus(200);
+    /**
+     * @test
+     */
+    public function DB確認(): void
+    {
+        $this->assertSame('sqlite_testing', \Config::get('database.default'));
     }
 }

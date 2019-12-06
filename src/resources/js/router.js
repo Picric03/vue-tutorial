@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 
 import PhotoList from './pages/photoList';
 import Login from './pages/Login';
+import store from './store';
+import SystemError from './pages/errors/System';
 
 Vue.use(VueRouter);
 
@@ -14,6 +16,17 @@ const routes = [
     {
         path: '/login',
         component: Login,
+        beforeEnter(to, from, next) {
+            if (store.getters['auth/check']) {
+                next('/');
+            } else {
+                next();
+            }
+        }
+    },
+    {
+        path: '/500',
+        component: SystemError,
     }
 ];
 

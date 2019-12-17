@@ -9,6 +9,8 @@ class Photo extends Model
 {
     protected $keyType = 'string';
 
+    protected $perPage = 2;
+
     private const ID_LENGTH = 12;
 
     protected $appends = [
@@ -60,6 +62,6 @@ class Photo extends Model
 
     public function getUrlAttribute()
     {
-        return Storage::disk('public')->url($this->attributes['filename']);
+        return asset(Storage::disk('public')->url($this->attributes['filename']));
     }
 }

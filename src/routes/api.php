@@ -26,3 +26,5 @@ Route::get('/user', function (){
 })->name('user');
 
 Route::post('/photos', 'PhotoController@create')->name('photo.create');
+
+Route::get('/photos', 'PhotoController@index')->name('photo.index');

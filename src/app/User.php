@@ -28,6 +28,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $visible = [
+        'name',
+    ];
+
     public function photos()
     {
         return $this->hasMany('App\Photo');

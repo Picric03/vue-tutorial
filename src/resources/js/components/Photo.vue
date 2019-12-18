@@ -53,7 +53,7 @@
                 // 縦横比率 3:4 よりも横長の画像
                 this.landscape = height / width <= 0.75;
                 // 横長でなければ縦長
-                this.portrait = ! this.landscape
+                this.portrait = ! this.landscape;
             }
         },
         watch: {

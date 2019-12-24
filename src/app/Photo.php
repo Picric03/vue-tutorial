@@ -9,7 +9,7 @@ class Photo extends Model
 {
     protected $keyType = 'string';
 
-    protected $perPage = 2;
+    protected $perPage = 15;
 
     private const ID_LENGTH = 12;
 
@@ -21,6 +21,7 @@ class Photo extends Model
         'id',
         'owner',
         'url',
+        'comments',
     ];
 
     public function __construct(array $attributes = [])
@@ -63,5 +64,10 @@ class Photo extends Model
     public function getUrlAttribute()
     {
         return asset(Storage::disk('public')->url($this->attributes['filename']));
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment')->orderBy('id', 'desc');
     }
 }

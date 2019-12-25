@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class Photo extends Model
@@ -15,6 +16,8 @@ class Photo extends Model
 
     protected $appends = [
         'url',
+        'likes_count',
+        'liked_by_user',
     ];
 
     protected $visible = [
@@ -22,6 +25,8 @@ class Photo extends Model
         'owner',
         'url',
         'comments',
+        'likes_count',
+        'liked_by_user',
     ];
 
     public function __construct(array $attributes = [])
@@ -69,5 +74,26 @@ class Photo extends Model
     public function comments()
     {
         return $this->hasMany('App\Comment')->orderBy('id', 'desc');
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany('App\User', 'likes')->withTimestamps();
+    }
+
+    public function getLikesCountAttribute()
+    {
+        return $this->likes->count();
+    }
+
+    public function getLikedByUserAttribute()
+    {
+        if (Auth::guest()) {
+            return false;
+        }
+
+        return $this->likes->contains(function($user){
+            return $user->id === Auth::user()->id;
+        });
     }
 }

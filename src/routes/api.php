@@ -36,3 +36,8 @@ Route::post('/photos/{photo}/comments', 'PhotoController@addComment')->name('pho
 Route::put('/photos/{id}/like', 'PhotoController@like')->name('photo.like');
 
 Route::delete('/photos/{id}/like', 'PhotoController@unlike');
+
+Route::get('/reflesh-token', function (Request $request) {
+    $request->session()->regenerateToken();
+    return response()->json();
+});
